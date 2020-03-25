@@ -1,0 +1,104 @@
+#include <iostream>
+#include <cstdlib>
+#include <string>
+using namespace std;
+
+class Student {
+private:
+    string name;
+    string group;
+public:
+    Student(string kname, string kgroup) {
+        name = kname;
+        group = kgroup;
+    }
+    string getName() {
+        return name;
+    }
+    string getGroup() {
+        return group;
+    }
+};
+
+template <class type> class Array {
+private:
+    int realSize;
+    int maxLength;
+    type* head;
+public:
+    Array(int maxLen) {
+        head = (type*)malloc(maxLen*sizeof(type));
+        realSize = 0;
+        maxLength = maxLen;
+    }
+    void freeArray() {
+        free(head);
+    }
+    type getElem(int index) {
+        if (index < realSize) {
+            return head[index];
+        }
+        else {
+            cout << "Enter correct index\n" << endl;
+        }
+    }
+    void addElem(type a) {
+        if (realSize < maxLength) {
+            head[realSize] = a;
+            ++realSize;
+        }
+    }
+    void delElem(int index) {
+        if (index < realSize) {
+            for (int i = index; i < realSize; ++i) {
+                head[i] = head[i + 1];
+            }
+            --realSize;
+        }
+        else {
+            cout << "Enter correct index\n" << endl;
+        }
+    }
+    int getRealSize() {
+        return realSize;
+    }
+};
+
+void delGroup(string n, Array<Student> ar) {
+    int len = ar.getRealSize();
+    for (int i = 0; i < len; ++i) {
+        if (ar.getElem(i).getGroup() == n) {
+            ar.delElem(i);
+        }
+    }
+}
+
+void printStudent(Array<Student> ar) {
+    int len = ar.getRealSize();
+    for (int i = 0; i < len; ++i) {
+        cout << ar.getElem(i).getName() << "    " << ar.getElem(i).getGroup() << endl;
+    }
+    cout << "" << endl;
+}
+
+int main() {
+    int len;
+    cout << "Enter max length" << endl;
+    cin >> len;
+    cout << len << endl;
+    Array<Student> arr(len);
+
+    arr.addElem(Student("Kirill", "B19-228"));
+    arr.addElem(Student("Vova", "B18-322"));
+    arr.addElem(Student("Artem", "B14-880"));
+    arr.addElem(Student("Pasha", "B19-514"));
+    arr.addElem(Student("Ilya", "C16-565"));
+    arr.addElem(Student("Alex", "B19-514"));
+
+    printStudent(arr);
+    arr.delElem(2);
+    printStudent(arr);
+    delGroup("B19-514", arr);
+    printStudent(arr);
+    return 0;
+}
