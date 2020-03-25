@@ -81,7 +81,7 @@ void delGroup(string n, Array<Student> ar) {
             ++k;
         }
     }
-    ar.setRealSize(k + 1);
+    ar.setRealSize(k);
 }
 
 void printStudent(Array<Student> ar) {
