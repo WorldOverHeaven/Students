@@ -74,7 +74,7 @@ void delGroup(string n, Array<Student> ar) {
     int len = ar.getRealSize();
     int k = 0;
     for (int i = 0; i < len; ++i) {
-        if (ar.getElem(i).getGroup() == n) {
+        if (ar.getElem(i).getGroup() != n) {
             ar.setElem(k, ar.getElem(i));
             ++k;
         }
